@@ -1,14 +1,15 @@
 import { role } from '../models/role'
 
 export class users{
-    userId: number // primary key
+      userId: number // primary key
       username: string // not null, unique
       password: string // not null
       firstName: string // not null
       lastName: string // not null
       email: string // not null
       role: "Role" // not null
-      constructor(userId: number, 
+      constructor(
+        userId: number,
         username: string, 
         password: string,
         firstName: string, 

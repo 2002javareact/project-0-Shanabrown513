@@ -1,5 +1,5 @@
 export class reimbursement{
-    reimbursementId: number // primary key
+      reimbursementId: number
       author: number  // foreign key -> User, not null
       amount: number  // not null
     dateSubmitted: number // not null
@@ -11,7 +11,7 @@ export class reimbursement{
     constructor(reimbursementId: number, author: number, amount: number,  
     dateSubmitted: number, dateResolved: number, 
     description: string, resolver: number, status: number, type: number){
-      this.reimbursementId = reimbursementId
+      this.reimbursementId =reimbursementId
       this.author = author 
       this.amount = amount 
       this.dateSubmitted = dateSubmitted

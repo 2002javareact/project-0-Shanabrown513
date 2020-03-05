@@ -1,6 +1,6 @@
 // this is what the field names from the database are
 export class reimbursementDTO {
-    reimbursement_id: number
+      reimbursement_id:number 
       author:number 
       amount:number 
     date_submitted:number
@@ -9,7 +9,8 @@ export class reimbursementDTO {
     resolver:number
     status:number
     type:number 
-    constructor(reimbursement_id:number,
+    constructor(
+        reimbursement_id: number,
         author: number, 
         amount: number,  
         date_submitted: number, 
@@ -18,7 +19,7 @@ export class reimbursementDTO {
         resolver: number, 
         status:number, 
         type:number){
-      this.reimbursement_id = reimbursement_id
+      
       this.author = author 
       this.amount = amount 
       this.date_submitted = date_submitted

@@ -1,7 +1,7 @@
 import * as express from 'express'
 import { users } from '../models/users'
 import { authenticationAdminMiddleware, authenticationUserMiddleware, authenticationFactory, authenticationCheckId } from '../middleware/authentication-middleware'
-import { findAllUsers, saveOneUser, findUserById } from '../services/user-service'
+import { updateOneUser, findAllUsers, findUserById } from '../services/user-service'
 import { UserDTO } from '../dtos/UserDTO'
 
 
@@ -22,10 +22,10 @@ userRouter.get('', [authenticationFactory(['finance manager','admin']), async (r
 
 // generally in rest convention
 // a post request to the root of a resource will make one new of that resource
-userRouter.post('', authenticationFactory(['admin']), async (req,res)=>{
-    let { userId, username, password,
+userRouter.patch('', authenticationFactory(['admin']), async (req,res)=>{
+    let {userId, username, password,
     firstName, lastName, email,
-    role }:{
+    role}:{
         userId: number,
         username:string,
         password:string,
@@ -35,9 +35,9 @@ userRouter.post('', authenticationFactory(['admin']), async (req,res)=>{
         role:"Role"
     } = req.body// this will be where the data the sent me is
     // the downside is this is by default just a string of json, not a js object
-    if(userId && username && password && firstName && lastName && email && role){
+    if(userId || username || password || firstName || lastName || email || role){
         
-        let newUser = await saveOneUser(new UserDTO(
+        let updateUser = await updateOneUser(new UserDTO(
                                             userId,
                                             username,
                                             password,
@@ -47,7 +47,7 @@ userRouter.post('', authenticationFactory(['admin']), async (req,res)=>{
                                             role
         ))
         // this would be some function for adding a new user to a db
-        res.sendStatus(201).json(newUser);// if I don't need to seend a body
+        res.status(201).json(updateUser);// if I don't need to seend a body
     } else {
         res.status(400).send('Please include all user fields')
         // for setting a status and a body

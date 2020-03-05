@@ -50,20 +50,20 @@ export async function daoFindAllUsers():Promise<users[]>{
 
 
 // function that saves a new user and returns that user with its new id
-export async function daoSaveOneUser(newUser:UserDTO):Promise<users> {
+export async function daoUpdateOneUser(updateUser:UserDTO):Promise<users> {
     let client:PoolClient
     try { 
         client = await connectionPool.connect()
         // send a query and immeadiately get the role id matching the name on the dto
-        let roleId = (await client.query('SELECT * FROM "project_0"."roles" WHERE role_name = $1', [newUser.role])).rows[0].role_id
+        //let roleId = (await client.query('SELECT * FROM "project_0"."roles" WHERE role_name = $1', [updateUser.role])).rows[0].role_id
         // send an insert that uses the id above and the user input
-        let result = await client.query('INSERT INTO "project_0"."users" (user_id, username, "password", first_name, last_name, email, f, "Roles") values ($1,$2,$3,$4,$5,$6,$7) RETURNING user_id;',
-        [newUser.user_id,newUser.username, newUser.password, newUser.first_name, newUser.last_name,  newUser.email, roleId])
+        let result = await client.query('UPDATE "project_0".users Set username = $1, password = $2, first_name = $3, last_name = $4, email = $5, role = $6 where user_id = $7',
+        [updateUser.username, updateUser.password, updateUser.first_name, updateUser.last_name, updateUser.email, updateUser.role, updateUser.user_id])
         // put that newly genertaed user_id on the DTO 
-        newUser.user_id = result.rows[0].user_id
-        return userDTOToUserConverter(newUser)// convert and send back
+        //updateUser.user_id = result.rows[0].user_id
+        return userDTOToUserConverter(updateUser)// convert and send back
     } catch(e){
-
+        console.log(e);
         throw new InternalServerError()
     } finally {
         client && client.release()
@@ -89,7 +89,5 @@ export async function daoFindUserById(id:number):Promise<users>{
         }
         throw new InternalServerError()
     } finally {
-        client && client.release()
-    }
 }
-
+}
