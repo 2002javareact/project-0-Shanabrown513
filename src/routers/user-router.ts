@@ -2,7 +2,7 @@ import * as express from 'express'
 import { users } from '../models/users'
 import { authenticationAdminMiddleware, authenticationUserMiddleware, authenticationFactory, authenticationCheckId } from '../middleware/authentication-middleware'
 import { updateOneUser, findAllUsers, findUserById } from '../services/user-service'
-import { UserDTO } from '../dtos/UserDTO'
+import { UserDTO } from '../dtos/userDTO'
 
 
 export const userRouter = express.Router()
