@@ -19,7 +19,7 @@ export class reimbursementDTO {
         resolver: number, 
         status:number, 
         type:number){
-      
+      this.reimbursement_id = reimbursement_id
       this.author = author 
       this.amount = amount 
       this.date_submitted = date_submitted
