@@ -79,7 +79,7 @@ reimbursementRouter.get('', [authenticationFactory(['finance manager', 'admin'])
     } = req.body// this will be where the data the sent me is
     // the downside is this is by default just a string of json, not a js object
     if(reimbursementId && (author || amount || dateSubmitted || dateResolved || description || resolver || status || type)){
-        let updateReimbursement = await updateOneReimbursement(new reimbursement(
+        let updateReimbursement = await updateOneReimbursement(new reimbursementDTO(
                                                                 reimbursementId,
                                                                 author, 
                                                                 amount, 
